@@ -141,7 +141,7 @@ function showDevices(data) {
       $('<td id="_type_' + i + '">').text(item.type),
       $('<td id="_ip_' + i + '">').text(item.ip),
       $('<td id="_mac_' + i + '">').text(item.mac),
-      $('<td id="_' + i + '" class="_no_json">').html('<button type="button" class="btn btn-primary  actions" data-toggle="modal" data-target="#modal-lg" title="Learn and Send IR/RF Codes">Actions</button>')
+      $('<td id="_' + i + '" class="_no_json">').html('<button type="button" class="btn btn-primary  actions" data-toggle="modal" data-target="#modal-lg" title="Learn and send IR/RF codes">Actions</button>')
 
     );
     i++;
@@ -228,7 +228,7 @@ function learnrf(_type, _host, _mac) {
           $('#message').text(data.data);
         else {
           $('#data').val(hexToBase64(data.data));
-          $('#message').text("RF Scan Completed Successfully");
+          $('#message').text("RF scan completed successfully");
         }
 
         clearInterval(RfStatus);
