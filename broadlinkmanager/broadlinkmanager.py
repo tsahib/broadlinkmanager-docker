@@ -103,7 +103,7 @@ def getDeviceName(deviceType):
         0x51E3: "BG Electrical Smart Power Socket",
         0x60c8: "RGB Smart Bulb",
     }
-    return name.get(deviceType, "Not Supported")
+    return name.get(deviceType, "Not supported")
 
 def auto_int(x):
     return int(x, 0)
@@ -225,7 +225,7 @@ def temperature():
     try:
         return jsonify('{"data":"'+dev.check_temperature()+'","success":"1"}')
     except:
-        return jsonify('{"data":"Method Not Supported","success":"0"}')
+        return jsonify('{"data":"Method not supported","success":"0"}')
 
 
 
@@ -245,9 +245,9 @@ def learnir():
         else:
             break
     else:
-        return jsonify('{"data":"","success":0,"message":"No Data Recived"}')
+        return jsonify('{"data":"","success":0,"message":"No data received"}')
     learned = ''.join(format(x, '02x') for x in bytearray(data))
-    return jsonify('{"data":"' + learned + '","success":1,"message":"IR Data Recived"}')
+    return jsonify('{"data":"' + learned + '","success":1,"message":"IR data received"}')
 
 # Send IR/RF
 
@@ -262,7 +262,7 @@ def command():
         dev.send_data(bytearray.fromhex(''.join(command)))
         return jsonify('{"data":"","success":1,"message":"Command sent successfully"}')
     except:
-        return jsonify('{"data":"","success":0,"message":"Error occurred while Sending command!"}')
+        return jsonify('{"data":"","success":0,"message":"Error occurred while sending command!"}')
 
 
 # Learn RF
@@ -278,18 +278,18 @@ def sweep():
         'host'), request.args.get('mac'))
     dev.auth()
     dev.sweep_frequency()
-    _rf_sweep_message = "Learning RF Frequency, press and hold the button to learn..."
+    _rf_sweep_message = "Learning RF frequency, press and hold the button to learn..."
     start = time.time()
     while time.time() - start < TIMEOUT:
         time.sleep(1)
         if dev.check_frequency():
             break
     else:
-        _rf_sweep_message = "RF Frequency not found!"
+        _rf_sweep_message = "RF frequency not found!"
         dev.cancel_sweep_frequency()
-        return jsonify('{"data":"RF Frequency not found!","success":0}')
+        return jsonify('{"data":"RF frequency not found!","success":0}')
 
-    _rf_sweep_message = "Found RF Frequency - 1 of 2!"
+    _rf_sweep_message = "Found RF frequency - 1 of 2!"
     time.sleep(1)
     _rf_sweep_message = "You can now let go of the button"
     _rf_sweep_status = True
@@ -309,12 +309,12 @@ def sweep():
         else:
             break
     else:
-        _rf_sweep_message = "No Data Found"
-        return jsonify('{"data":"No Data Found"}')
+        _rf_sweep_message = "No eata found"
+        return jsonify('{"data":"No data found"}')
 
     _rf_sweep_message = "Found RF Frequency - 2 of 2!"
     learned = ''.join(format(x, '02x') for x in bytearray(data))
-    _rf_sweep_message = "RF Scan Completed Successfully"
+    _rf_sweep_message = "RF Scan completed successfully"
     time.sleep(1)
     return jsonify('{"data":"' + learned + '"}')
 
